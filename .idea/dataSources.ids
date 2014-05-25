@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="MySQL - mlg@localhost" uuid="6f65d7c6-2379-4bd9-90c7-f814bd61c3ae">
+    <database-info product="MySQL" version="5.6.12-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.26 ( Revision: ${bzr.revision-id} )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="mlg"/>
+    <table name="categories" schema="" catalog="mlg" type="TABLE">
+      <column name="idcat" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nomcategories" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="idcat"/>
+      <exported-key name="joueurs_ibfk_2" table="joueurs" schema="" catalog="mlg" columns="idcat"/>
+    </table>
+    <table name="clubs" schema="" catalog="mlg" type="TABLE">
+      <column name="idc" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nom" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="ville" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="nomdirigeant" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="prenomdirigeant" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="idc"/>
+      <exported-key name="inscrire_ibfk_1" table="inscrire" schema="" catalog="mlg" columns="idc"/>
+      <exported-key name="joueurs_ibfk_1" table="joueurs" schema="" catalog="mlg" columns="idc"/>
+      <index name="nom" unique="true" columns="nom"/>
+    </table>
+    <table name="compte" schema="" catalog="mlg" type="TABLE">
+      <column name="user" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="mdp" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="mail" sqlType="VARCHAR" length="200" precision="0" nullable="false" jdbcType="12"/>
+      <column name="nom" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="prenom" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="user"/>
+    </table>
+    <table name="inscrire" schema="" catalog="mlg" type="TABLE">
+      <column name="datei" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91"/>
+      <column name="idc" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="idj" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="datei,idc,idj"/>
+      <foreign-key name="inscrire_ibfk_1" columns="idc" ref-table="clubs" ref-schema="" ref-catalog="mlg" ref-columns="idc" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="inscrire_ibfk_2" columns="idj" ref-table="joueurs" ref-schema="" ref-catalog="mlg" ref-columns="idj" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="joueurs" schema="" catalog="mlg" type="TABLE">
+      <column name="idj" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nom" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="prenom" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12"/>
+      <column name="datenaiss" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91"/>
+      <column name="nlicence" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
+      <column name="idc" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="idcat" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="idj"/>
+      <foreign-key name="joueurs_ibfk_1" columns="idc" ref-table="clubs" ref-schema="" ref-catalog="mlg" ref-columns="idc" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="joueurs_ibfk_2" columns="idcat" ref-table="categories" ref-schema="" ref-catalog="mlg" ref-columns="idcat" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="inscrire_ibfk_2" table="inscrire" schema="" catalog="mlg" columns="idj"/>
+    </table>
+    <procedure name="deleteClub" schema="" catalog="mlg" type="1">
+      <prototype>
+        <parameter name="id" sqlType="INT" length="10" precision="10" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="getFicheClub" schema="" catalog="mlg" type="1">
+      <prototype>
+        <parameter name="id" sqlType="INT" length="10" precision="10" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="insertClub" schema="" catalog="mlg" type="1">
+      <prototype>
+        <parameter name="noms" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="nomdirigeant" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="2"/>
+        <parameter name="prenomdirigeant" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="3"/>
+        <parameter name="ville" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="4"/>
+      </prototype>
+    </procedure>
+    <procedure name="updateClub" schema="" catalog="mlg" type="1">
+      <prototype>
+        <parameter name="id" sqlType="INT" length="10" precision="10" nullable="true" jdbcType="4" type="1" index="1"/>
+        <parameter name="noms" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="2"/>
+        <parameter name="villes" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="3"/>
+        <parameter name="nomdirigeants" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="4"/>
+        <parameter name="prenomdirigeants" sqlType="VARCHAR" length="50" precision="50" nullable="true" jdbcType="12" type="1" index="5"/>
+      </prototype>
+    </procedure>
+  </data-source>
+</component>
